@@ -1,0 +1,17 @@
+---
+title: "assignment PS5"
+author: "Ricardo Torres Arevalo"
+date: "2023-02-15"
+output: html_document
+---
+## Load and check data (5pt)
+Loading libraries
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+Loading the data
+```{r}
+gapminder <- read_delim("gapminder.csv.bz2")
+```
+
