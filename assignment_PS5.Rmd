@@ -14,4 +14,36 @@ Loading the data
 ```{r}
 gapminder <- read_delim("gapminder.csv.bz2")
 ```
+There are `r nrow(gapminder)` rows and `r ncol(gapminder)` columns.
+
+```{r}
+gapminder %>% 
+  head(6)
+```
+
+The data looks to be good all of the variables contain data. ~~~~
+
+##Descriptive statistics (15pt)
+```{r}
+gapminder %>% 
+  summarise(ctry2l = length(unique(iso2)),
+         ctry3l = length(unique(iso3)),
+         ctry_name = length(unique(name)))
+```
+
+```{r}
+gapminder %>% 
+  group_by(iso2) %>% 
+  summarise(count_iso2 = length(unique(name))) %>% 
+  filter(count_iso2 > 1 )
+```
+
+An iso2 of the name NA has more than 1 iso2 code. 
+
+```{r}
+gapminder %>% 
+  group_by(iso3) %>% 
+  summarise(count_iso3 = length(unique(name))) %>% 
+  filter(count_iso3 != 1)
+```
 
