@@ -34,8 +34,7 @@ gapminder %>%
 ```{r}
 gapminder %>% 
   group_by(iso2) %>% 
-  summarise(count_iso2 = length(unique(name))) %>% 
-  filter(count_iso2 > 1 )
+  summary(ciso2 = n_distinct(name))
 ```
 
 An iso2 of the name NA has more than 1 iso2 code. 
