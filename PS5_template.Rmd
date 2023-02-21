@@ -95,17 +95,20 @@ gapminder %>%
     (a) (5pt) Find how many names are there for each iso-2 code. Are there any iso-2 codes that correspond to more than one name? What are these countries?
     
 ```{r}
-# gapminder %>% 
-#  group_by(iso2) %>% 
-#   mutate(ciso2 = n_distinct(name)) %>%
-#   filter(ciso2 >)
+gapminder %>%
+ group_by(iso2) %>%
+ summarise(c_name = n_distinct(name)) %>% 
+  arrange(desc(c_name))
 
 ```
     
     
     (b) (5pt) Now repeat the same for name and iso3-code. Are there country names that have more than one iso3-code? What are these countries? Hint: two of these entitites are *CHANISL* and *NLD CURACAO*.
     ```{r}
-# gapminder %>% 
+gapminder %>%
+      group_by(name) %>% 
+      summarise(n_iso3 = n_distinct(iso3)) %>% 
+      arrange(desc(n_iso3))
 
 ```
 3. (2pt) What is the minimum and maximum year in these data?
