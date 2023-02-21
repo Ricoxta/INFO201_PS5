@@ -10,8 +10,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```
 
-# Disclaimer: this serves as a template for you to compose your answer for PS4. It is 100% hardcoded, so error may exists. Please refer to the official spec for a full list of questions and requirements.
-
 # Instructions
 This is a problem set about rmarkdown and plotting (using ggplot). Unlike the previous problem sets, this one does not give you a ready-made GH repo with a code file–it is now your task to create a repo and include your rmarkdown file in there.\
 
@@ -74,7 +72,7 @@ gapminder %>%
   head(6)
 ```
   
-  
+The data looks to be good. There are values that make the data usable and everything is readable.
 ---------------------------------------------------------------------
 
 
@@ -104,7 +102,7 @@ gapminder %>%
     
     
     (b) (5pt) Now repeat the same for name and iso3-code. Are there country names that have more than one iso3-code? What are these countries? Hint: two of these entitites are *CHANISL* and *NLD CURACAO*.
-    ```{r}
+```{r}
 gapminder %>%
       group_by(name) %>% 
       summarise(n_iso3 = n_distinct(iso3)) %>% 
@@ -112,7 +110,12 @@ gapminder %>%
 
 ```
 3. (2pt) What is the minimum and maximum year in these data?
-
+```{r}
+gapminder %>% 
+  filter(!is.na(time)) %>% 
+  summarise(min_year = min(time), max_year = max(time))
+  
+```
 ---------------------------------------------------------------------
 
 # 3 CO2 emissions (30pt)
@@ -137,12 +140,11 @@ The years that have the most amount of missing data for CO2 and co2_PC are 2017,
 ```{r}
 gapminder %>% 
   filter(name == c("United States of America", "China", "India", "Indonesia", "Maldives")) %>% 
-  filter(!is.na(co2), !is.na(co2_PC)) %>% 
-  mutate(total = (co2 + co2_PC)) %>% 
-  ggplot(aes(time, total, col = name)) + 
+  filter(!is.na(co2)) %>% 
+  ggplot(aes(time, co2, col = name)) + 
   geom_line()+
-  labs(x = "Time(years)", y = "Total Emissions", col = "Country Name")
-  
+  labs(x = "Time(years)", y = "Total CO2 Emissions", col = "Country Name")
+
 ```
 
 What I saw was that after the year 2000, China's CO2 emissions increased at a higher rate than all of the other countries that were plotted on the graph. \
@@ -157,7 +159,7 @@ gapminder %>%
   ggplot(aes(time, co2_PC, col = name)) + 
   geom_line()+
   labs(x = "Time(years)", y = "Emissions per Capita", col = "Country Name")
-  
+
 ```
 
 The plot shows that the United States had a higher amount of emissions per capita compared to all of the other countries in the graph. The US may have more services or products that use more CO2 than other countries such as for transportation like cars. 
@@ -189,7 +191,7 @@ gapminder %>%
   summarise(avg = mean(co2_PC)) %>% 
   ggplot(aes(region, avg,  fill = factor(time))) +
   geom_bar(stat = "identity", position = "dodge")+
-  labs(x = "region", y = "Average CO2 Emissions per Capita", fill = "Year")
+  labs(x = "Region", y = "Average CO2 Emissions per Capita", fill = "Year")
  
 ```
 
@@ -286,7 +288,7 @@ gapminder %>%
   
 ```
 
-**I see that Africa had the most amount of growth in avergae life expectancy and that some of the life expectancy decreased from 1960 and 2019 like Asia and Oceania.**
+**I see that Africa had the most amount of growth in average life expectancy and that some of the life expectancy decreased from 1960 and 2019 like Asia and Oceania.**
 
 6. (6pt) Show the histogram of GDP per capita for years of 1960 and 2019. Try to put both histograms on the same graph, see how well you can do it! \
 
@@ -322,7 +324,7 @@ gapminder %>%
   mutate(rank = rank(desc(lifeExpectancy))) %>% 
   arrange(desc(lifeExpectancy)) %>% 
     select(rank, name, lifeExpectancy) %>%
-  filter(name == "United States of America")
+  filter(name == "United States of America") 
   
 ```
 
