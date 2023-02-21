@@ -256,11 +256,24 @@ gapminder %>%
 4. (6pt) Compute the average life expectancy for each continent in 1960 and 2019. Do the results fit with what do you see on the figures? \
 Note: here as *average*I mean just average over countries, ignore the fact that countries are of different size.\
 
+```{r}
+gapminder %>% 
+  group_by(region, time) %>% 
+  filter(!is.na(region), !is.na(lifeExpectancy),
+         time == 1960 | time == 2019) %>% 
+  summarise(avg = mean(lifeExpectancy))
+```
 
-
+**The results do fit in with the figure since Europe has the highest average life expectancy in the table as well as in the plot. Also, all of the countries have increased in life expectancy as well over the years so the results fit the figures in that way too.**
 
 5. (8pt) Compute the average LE growth from 1960-2019 across the continents. Show the results in the order of growth. Explain what do you see. \
 Hint: these data (data in long form) is not the simplest to compute growth. But you may want to check out the lag() function. And do not forget to group data by continent when using lag(), otherwise your results will be messed up! See [**https://faculty.washington.edu/otoomet/info201-book/dplyr.html#dplyr-helpers-compute**](https://faculty.washington.edu/otoomet/info201-book/dplyr.html#dplyr-helpers-compute).\
+```{r}
+gapminder %>% 
+  
+```
+
+
 
 6. (6pt) Show the histogram of GDP per capita for years of 1960 and 2019. Try to put both histograms on the same graph, see how well you can do it! \
 
